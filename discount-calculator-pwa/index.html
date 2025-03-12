@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Descuentos</title>
+    <title>Discount Calculator</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
         <h1>Discount Calculator</h1>
-        <input type="number" id="originalPrice" placeholder="Precio Original">
+        <input type="number" id="originalPrice" placeholder="Original Price">
         
         <select id="paymentType">
             <option value="" disabled selected>Select Payment Type</option>
@@ -26,7 +26,7 @@
         <input type="date" id="paymentDate">
         
         <button onclick="calculateDiscount()">Calculate</button>
-        <h2 id="result"></h2>
+        <div id="result"></div>
     </div>
     <script src="app.js"></script>
     <script>

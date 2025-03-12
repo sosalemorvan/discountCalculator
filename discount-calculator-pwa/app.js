@@ -14,34 +14,56 @@ function calculateDiscount() {
     const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
     // Determine the payment type discount
-    let paymentDiscount = 0;
+    let paymentDiscountRate = 0;
+    let paymentDiscountName = '';
     switch (paymentType) {
         case 'bolivares':
-            paymentDiscount = 0;
+            paymentDiscountRate = 0;
+            paymentDiscountName = 'Bolivares (0%)';
             break;
         case 'efectivo_dolares':
-            paymentDiscount = 0.20;
+            paymentDiscountRate = 0.20;
+            paymentDiscountName = 'Efectivo Dolares (20%)';
             break;
         case 'zelle':
-            paymentDiscount = 0.24;
+            paymentDiscountRate = 0.24;
+            paymentDiscountName = 'Zelle (24%)';
             break;
         default:
-            paymentDiscount = 0;
+            paymentDiscountRate = 0;
+            paymentDiscountName = 'None';
     }
 
     // Determine the days difference discount
-    let daysDiscount = 0;
+    let daysDiscountRate = 0;
+    let daysDiscountName = '';
     if (daysDifference >= 0 && daysDifference <= 3) {
-        daysDiscount = 0.10;
+        daysDiscountRate = 0.10;
+        daysDiscountName = '0-3 Days (10%)';
     } else if (daysDifference >= 4 && daysDifference <= 25) {
-        daysDiscount = 0.05;
+        daysDiscountRate = 0.05;
+        daysDiscountName = '4-25 Days (5%)';
     } else if (daysDifference >= 26) {
-        daysDiscount = 0;
+        daysDiscountRate = 0;
+        daysDiscountName = '26+ Days (0%)';
     }
 
-    // Calculate the final price
-    const finalPrice = originalPrice * (1 - paymentDiscount) * (1 - daysDiscount);
+    // Calculate the discount amounts
+    const paymentDiscountAmount = originalPrice * paymentDiscountRate;
+    const daysDiscountAmount = (originalPrice - paymentDiscountAmount) * daysDiscountRate;
 
-    // Display the result
-    document.getElementById('result').innerText = `Final Price: $${finalPrice.toFixed(2)}`;
+    // Calculate the final price
+    const finalPrice = originalPrice - paymentDiscountAmount - daysDiscountAmount;
+
+    // Display the result and discount details
+    const resultText = `
+        Original Price: $${originalPrice.toFixed(2)}
+        <br>
+        ${paymentDiscountName}: -$${paymentDiscountAmount.toFixed(2)}
+        <br>
+        ${daysDiscountName}: -$${daysDiscountAmount.toFixed(2)}
+        <br>
+        <strong>Final Price: $${finalPrice.toFixed(2)}</strong>
+    `;
+    document.getElementById('result').innerHTML = resultText;
 }
