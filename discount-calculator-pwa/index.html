@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="es"> <!-- Change language to Spanish -->
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#28a745">
     <title>Calculadora de Descuentos</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon-192x192.png">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,15 +17,15 @@
         
         <!-- Tab System -->
         <div class="tabs">
-            <button class="tab-button" onclick="switchTab('discount')">Calculadora de Descuentos</button>
-            <button class="tab-button active" onclick="switchTab('reverse')">Calculadora Inversa</button>
+            <button class="tab-button active" onclick="switchTab('discount')">Calculadora de Descuentos</button>
+            <button class="tab-button" onclick="switchTab('reverse')">Calculadora Inversa</button>
         </div>
         
         <!-- Discount Calculator Tab -->
-        <div id="discount" class="tab-content">
+        <div id="discount" class="tab-content active">
             <div class="input-group">
                 <label for="originalPrice">Precio Original:</label>
-                <input type="number" id="originalPrice" placeholder="Ingrese el precio original" inputmode="decimal">
+                <input type="number" id="originalPrice" placeholder="Ingrese el precio original" inputmode="decimal" step="0.01">
             </div>
             
             <div class="input-group">
@@ -49,10 +53,10 @@
         </div>
         
         <!-- Reverse Calculator Tab -->
-        <div id="reverse" class="tab-content active">
+        <div id="reverse" class="tab-content">
             <div class="input-group">
                 <label for="paymentAmount">Monto del Pago:</label>
-                <input type="number" id="paymentAmount" placeholder="Ingrese el monto del pago" inputmode="decimal">
+                <input type="number" id="paymentAmount" placeholder="Ingrese el monto del pago" inputmode="decimal" step="0.01">
             </div>
             
             <div class="input-group">
@@ -81,5 +85,16 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then((registration) => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch((error) => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
 </body>
 </html>

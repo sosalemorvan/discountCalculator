@@ -1,0 +1,22 @@
+{
+  "short_name": "Calculadora",
+  "name": "Calculadora de Descuentos",
+  "description": "Una calculadora para calcular descuentos basados en el tipo de pago y la fecha.",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#28a745"
+}
