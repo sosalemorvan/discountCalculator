@@ -1,12 +1,15 @@
-const CACHE_NAME = 'discount-calculator-v7';
+const CACHE_NAME = 'discount-calculator-v1';
 const ASSETS = [
-    '/',
-    '/index.html?v=1',
-    '/styles.css?v=1',
-    '/app.js?v=1',
-    '/service-worker.js?v=1',
-    '/manifest.json?v=1'
-  ];
+  '/', // Root page
+  '/index.html',
+  '/styles.css', // Your CSS file
+  '/app.js', // Your JavaScript file
+  '/manifest.json',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
+  'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css', // Flatpickr CSS
+  'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js' // Flatpickr JS
+];
 
 // Install the service worker and cache assets
 self.addEventListener('install', (event) => {
@@ -37,14 +40,4 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-
-  // Claim clients to ensure the new service worker takes control immediately
-  self.clients.claim();
-});
-
-// Listen for messages from the main thread (e.g., to trigger a refresh)
-self.addEventListener('message', (event) => {
-  if (event.data === 'skipWaiting') {
-    self.skipWaiting(); // Force the new service worker to activate
-  }
 });

@@ -17,12 +17,12 @@
         
         <!-- Tab System -->
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('discount')">Calculadora de Descuentos</button>
-            <button class="tab-button" onclick="switchTab('reverse')">Calculadora Inversa</button>
+            <button class="tab-button" onclick="switchTab('discount')">Calculadora de Descuentos</button>
+            <button class="tab-button active" onclick="switchTab('reverse')">Calculadora Inversa</button>
         </div>
         
         <!-- Discount Calculator Tab -->
-        <div id="discount" class="tab-content active">
+        <div id="discount" class="tab-content">
             <div class="input-group">
                 <label for="originalPrice">Precio Original:</label>
                 <input type="number" id="originalPrice" placeholder="Ingrese el precio original" inputmode="decimal" step="0.01">
@@ -53,7 +53,7 @@
         </div>
         
         <!-- Reverse Calculator Tab -->
-        <div id="reverse" class="tab-content">
+        <div id="reverse" class="tab-content active">
             <div class="input-group">
                 <label for="paymentAmount">Monto del Pago:</label>
                 <input type="number" id="paymentAmount" placeholder="Ingrese el monto del pago" inputmode="decimal" step="0.01">
