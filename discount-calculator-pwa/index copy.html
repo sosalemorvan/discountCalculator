@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discount</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="manifest" href="manifest.json"> -->
+</head>
+<body>
+    <div class="container">
+        <h1>Descuentos</h1>
+        <input type="number" id="originalPrice" placeholder="Original Price">
+        
+        <select id="paymentType">
+            <option value="" disabled selected>Select Payment Type</option>
+            <option value="bolivares">Bolivares</option>
+            <option value="efectivo_dolares">Efectivo Dolares</option>
+            <option value="zelle">Zelle</option>
+        </select>
+        
+        <label for="deliveryDate">Delivery Date:</label>
+        <input type="text" id="deliveryDate" placeholder="dd/mm/aaaa">
+        
+        <label for="paymentDate">Payment Date:</label>
+        <input type="text" id="paymentDate" placeholder="dd/mm/aaaa">
+        
+        <button onclick="calculateDiscount()">Calculate</button>
+        <div id="result"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="app.js"></script>
+    <!-- <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script> -->
+</body>
+</html>
