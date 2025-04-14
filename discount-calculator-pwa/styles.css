@@ -101,3 +101,15 @@ button:hover {
     width: 100%;
     max-width: 300px;
 }
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#facturadoAntes {
+    width: auto;
+    margin: 0;
+}

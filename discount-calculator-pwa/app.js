@@ -1,9 +1,4 @@
 // Initialize Flatpickr for date inputs
-flatpickr("#deliveryDate", {
-  dateFormat: "d/m/Y",
-  allowInput: true,
-});
-
 flatpickr("#paymentDate", {
   dateFormat: "d/m/Y",
   allowInput: true,
@@ -17,6 +12,45 @@ flatpickr("#reverseDeliveryDate", {
 flatpickr("#reversePaymentDate", {
   dateFormat: "d/m/Y",
   allowInput: true,
+});
+
+// Define discount rates based on checkbox state
+function getDiscountRates(paymentType, facturadoAntes) {
+    // Now special rates apply when box is NOT checked
+    if (!facturadoAntes) {
+        return {
+            'bolivares': 0,
+            'efectivo_dolares': 0.40, // 40%
+            'zelle': 0.43 // 43%
+        }[paymentType] || 0;
+    } else {
+        return {
+            'bolivares': 0,
+            'efectivo_dolares': 0.20, // Original 20%
+            'zelle': 0.24 // Original 24%
+        }[paymentType] || 0;
+    }
+}
+
+// Update date picker initialization
+flatpickr("#deliveryDate", {
+    dateFormat: "d/m/Y",
+    allowInput: true,
+    minDate: document.getElementById('facturadoAntes').checked ? "28/03/2025" : null
+});
+
+// Add event listener to checkbox
+document.getElementById('facturadoAntes').addEventListener('change', function() {
+    flatpickr("#deliveryDate", {
+        dateFormat: "d/m/Y",
+        allowInput: true,
+        minDate: !this.checked ? "28/03/2025" : null
+    });
+    
+    // Recalculate if fields are already filled
+    if (document.getElementById('originalPrice').value) {
+        calculateDiscount();
+    }
 });
 
 // Tab Switching Function
@@ -42,45 +76,33 @@ function calculateDiscount() {
     const paymentType = document.getElementById('paymentType').value;
     const deliveryDateInput = document.getElementById('deliveryDate').value;
     const paymentDateInput = document.getElementById('paymentDate').value;
+    const facturadoAntes = document.getElementById('facturadoAntes').checked;
 
     if (isNaN(originalPrice) || !paymentType || !deliveryDateInput || !paymentDateInput) {
         document.getElementById('result').innerText = 'Por favor, complete todos los campos correctamente.';
         return;
     }
 
-    // Parse the date inputs (dd/mm/aaaa)
-    const parseDate = (dateString) => {
-        const [day, month, year] = dateString.split('/');
-        return new Date(year, month - 1, day);
-    };
-
-    const deliveryDate = parseDate(deliveryDateInput);
-    const paymentDate = parseDate(paymentDateInput);
-
-    // Calculate the difference in days between payment and delivery
-    const timeDifference = paymentDate - deliveryDate;
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-    // Determine the payment type discount
-    let paymentDiscountRate = 0;
+    // Get discount rate based on checkbox state
+    const paymentDiscountRate = getDiscountRates(paymentType, facturadoAntes);
     let paymentDiscountName = '';
+    
     switch (paymentType) {
         case 'bolivares':
-            paymentDiscountRate = 0;
             paymentDiscountName = 'Bolívares (0%)';
             break;
         case 'efectivo_dolares':
-            paymentDiscountRate = 0.20;
-            paymentDiscountName = 'Efectivo Dólares (20%)';
+            paymentDiscountName = facturadoAntes ? 'Efectivo Dólares (40%)' : 'Efectivo Dólares (20%)';
             break;
         case 'zelle':
-            paymentDiscountRate = 0.24;
-            paymentDiscountName = 'Zelle (24%)';
+            paymentDiscountName = facturadoAntes ? 'Zelle (43%)' : 'Zelle (24%)';
             break;
         default:
-            paymentDiscountRate = 0;
             paymentDiscountName = 'Ninguno';
     }
+
+    // Rest of your calculation logic remains the same...
+    // (days difference calculation, final price calculation, etc.)
 
     // Determine the days difference discount (only if payment type is not Bolívares)
     let daysDiscountRate = 0;

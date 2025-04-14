@@ -47,7 +47,12 @@
                 <label for="paymentDate">Fecha de Pago:</label>
                 <input type="text" id="paymentDate" placeholder="dd/mm/aaaa">
             </div>
-            
+            <div class="input-group">
+                <label for="checkAntes">
+                    <input type="checkbox" id="facturadoAntes">
+                    Facturado antes del 28 de Marzo 2025
+                </label>
+            </div>
             <button onclick="calculateDiscount()">Calcular</button>
             <div id="result"></div>
         </div>
@@ -79,6 +84,13 @@
                 <input type="text" id="reversePaymentDate" placeholder="dd/mm/aaaa">
             </div>
             
+            <div class="input-group">
+                <label>
+                    <input type="checkbox" id="facturadoAntes"> 
+                    Facturado antes de 28 marzo 2025
+                </label>
+            </div>
+
             <button onclick="calculateReverse()">Calcular</button>
             <div id="reverseResult"></div>
         </div>
